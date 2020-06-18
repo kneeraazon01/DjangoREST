@@ -20,7 +20,9 @@ from .models import Article
 #         instance.save()
 #         return instance
 
-# REPLACING THE OBOVE ENTIRE CODE WITH MODELSERIALIZER
+
+# ! REPLACING THE OBOVE ENTIRE CODE WITH MODELSERIALIZER
+# we get the same resutl
 
 
 class artileSerializer(serializers.ModelSerializer):
