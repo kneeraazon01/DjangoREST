@@ -25,7 +25,7 @@ from .models import Article
 # we get the same resutl
 
 
-class artileSerializer(serializers.ModelSerializer):
+class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = "__all__"
