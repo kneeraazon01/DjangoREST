@@ -1,4 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
-
-urlpatterns = [path("admin/", admin.site.urls), path("", include("restdjango.urls"))]
+from restdjango.views import ArticleViewSet
+from rest_framework.routers import DefaultRouter
+ 
+ 
+router = DefaultRouter()
+router.register('article', ArticleViewSet, basename='article')
+ 
+ 
+urlpatterns = [
+ 
+    path('', include(router.urls))
+ 
+ 
+]

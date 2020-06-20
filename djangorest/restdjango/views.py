@@ -8,14 +8,58 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .models import Article
 from .serializers import ArticleSerializer
-
+from rest_framework import viewsets
 from rest_framework.authentication import (SessionAuthentication,TokenAuthentication, BasicAuthentication)
 from rest_framework.permissions import IsAuthenticated
-
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import mixins
 
+# ! We can also use generic viewsets like below
+class ArticleViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.DestroyModelMixin,):
+#   and so on like in the generic api):
+ 
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
+# !Modal Viewsets
+class ArticleViewSet(viewsets.ModelViewSet):
+    """
+        A viewset for viewing and editing article instances.
+        """
+ 
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
 
+
+
+# #! viewsets
+# class ArticleViewSet(viewsets.ViewSet):
+ 
+#     def list(self, request):
+#         articles = Article.objects.all()
+    #     serializer = ArticleSerializer(articles, many=True)
+    #     return Response(serializer.data)
+ 
+ 
+    # def create(self, request):
+    #     serializer = ArticleSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
+ 
+    # def retrieve(self, request, pk=None):
+    #     queryset = Article.objects.all()
+    #     article = get_object_or_404(queryset, pk=pk)
+    #     serializer = ArticleSerializer(article)
+    #     return Response(serializer.data)
 # !the best of all the generic views with mixins
 class GenericAPIView(
     generics.GenericAPIView,
