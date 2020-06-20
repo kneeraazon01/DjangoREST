@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from .models import Article
 from .serializers import ArticleSerializer
 
+from rest_framework.authentication import (SessionAuthentication,TokenAuthentication, BasicAuthentication)
+from rest_framework.permissions import IsAuthenticated
+
 from rest_framework import generics
 from rest_framework import mixins
 
@@ -25,7 +28,9 @@ class GenericAPIView(
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
     lookup_field = "id"
-
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, id=None):
 
         if id:
